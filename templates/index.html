@@ -78,8 +78,10 @@
             <div class="mx-auto d-flex justify-content-center">
              <form action="/textSubmit" id = "text-search" method="POST" style="display: block;">
                 <button id = "submit-text" class="btn btn-link text-primary">Text</button>
-                  <button id = "submit-Image" class="btn btn-link text-primary">Image</button>
+                <button id = "submit-multiLingual" class="btn btn-link text-primary">Text (MultiLingual)</button>  
+                <button id = "submit-Image" class="btn btn-link text-primary">Image</button>
                   <button id = "submit-Speech" class="btn btn-link text-primary">Speech</button>
+                  
                   <div class="text-smaller text-center text-muted m-0 p-0">Try entering queries such as "a person holding a cat'',  or ''Upload an Image''.</div>
                 <div class="p-1 rounded rounded-lg bg-white shadow-sm border">
                   <div class="input-group">
@@ -91,10 +93,31 @@
                 </div>
 
               </form>
-              <form action="/imageSubmit"id = "image-search" method="POST" enctype="multipart/form-data" style="display: none;">
+              <form action="/textMultiLingual" id = "text-multi-search" method="POST" style="display: none;">
                 <button id = "submit-text" class="btn btn-link text-primary">Text</button>
+                <button id = "submit-multiLingual" class="btn btn-link text-primary">Text (MultiLingual)</button>
                   <button id = "submit-Image" class="btn btn-link text-primary">Image</button>
                   <button id = "submit-Speech" class="btn btn-link text-primary">Speech</button>
+                  
+                  <div class="text-smaller text-center text-muted m-0 p-0">Try entering queries such as "a person holding a cat'',  or ''Upload an Image''.</div>
+                <div class="p-1 rounded rounded-lg bg-white shadow-sm border">
+                  <div class="input-group">
+                    <input type="search" name="query" value="" placeholder="Enter here your query in any Language..." aria-describedby="button-addon1" class="form-control border-0">
+                    <div class="input-group-append">
+                      <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="material-icons">search</i></button>
+                    </div>
+                  </div>
+                </div>
+
+                
+
+              </form>
+              <form action="/imageSubmit"id = "image-search" method="POST" enctype="multipart/form-data" style="display: none;">
+                <button id = "submit-text" class="btn btn-link text-primary">Text</button>
+                <button id = "submit-multiLingual" class="btn btn-link text-primary">Text (MultiLingual)</button>
+                  <button id = "submit-Image" class="btn btn-link text-primary">Image</button>
+                  <button id = "submit-Speech" class="btn btn-link text-primary">Speech</button>
+                  
                   <div class="text-smaller text-center text-muted m-0 p-0">Try entering queries such as "a person holding a cat'',  or ''a bird on top of a boat''.</div>
                 <div class="p-1 rounded rounded-lg bg-white shadow-sm border">
                   <div class="input-group">

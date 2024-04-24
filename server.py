@@ -17,17 +17,18 @@ import os
 from flask import Flask, redirect, url_for
 similar = []
 image_url = ""
-db = mysql.connect(host = "localhost",
-                    user = "root",
-                    passwd = "Test123",
-                    database = "Image_Path")
-cursor = db.cursor()
+#db = mysql.connect(host = "localhost",
+ #                   user = "root",
+ #                   passwd = "Test123",
+ #                   database = "Image_Path")
+#cursor = db.cursor()
 textModel = SiglipTextModel.from_pretrained("google/siglip-base-patch16-224")
 tokenizer = AutoTokenizer.from_pretrained("google/siglip-base-patch16-224")
-imgIndex = faiss.read_index('faissImageVector1M.index')
+imgIndex = faiss.read_index("multi1MImageVectors.index")
 textIndex = faiss.read_index('faissTextVector.index')
-Imagemodel = AutoModel.from_pretrained("google/siglip-base-patch16-224")
-processor = AutoProcessor.from_pretrained("google/siglip-base-patch16-224", low_cpu_mem_usage=True, do_rescale=False)
+Imagemodel = AutoModel.from_pretrained("google/siglip-so400m-patch14-384")
+Multitokenizer = AutoTokenizer.from_pretrained("google/siglip-so400m-patch14-384")
+processor = AutoProcessor.from_pretrained("google/siglip-so400m-patch14-384", low_cpu_mem_usage=True, do_rescale=False)
 device_type = "cpu"
 device = torch.device(device_type)
 Imagemodel.to(device)
@@ -56,17 +57,41 @@ def textSubmit():
         #end = time.time()
         #print("text time calculation", end-start)
         return redirect(url_for('pagination'))
+    
+@app.route('/textMultiLingual', methods = ['POST', 'GET'])
+def textSubmitMulti():
+    global similar
+    global image_url
+    image_url = None
+    if request.method == "POST":
+        text = request.form['query']
+        #start = time.time()
+        similar, k = TextSimilarMulti(text, 1000)
+        #end = time.time()
+        #print("text time calculation", end-start)
+        return redirect(url_for('pagination'))
+
+def TextSimilarMulti(text, k):
+    #model.eval()
+    inputs = Multitokenizer([text], padding="max_length", return_tensors="pt")
+    with torch.no_grad():
+        text_features = Imagemodel.get_text_features(**inputs)
+    _, I = imgIndex.search(text_features, k) 
+    similarList = I.tolist()
+    similarPath = indices_to_images(similarList[0])
+    return similarPath, k
+
         
         
 def indices_to_images(indices):
-    res = []
+    image_paths = []
     for i in indices:
-        result = (cursor.execute("SELECT Image_path from Image_Path.Path WHERE path_index =%s", (i,)))
-        result = cursor.fetchone()  # Fetch the result of the query
-        if result:
-
-            res.append("https://storage.googleapis.com/vislang-public/sbu-images/" + '/'.join(result[0].split("/")[1:]))
-    return res
+        folder_name = i // 1000
+        file_name = i % 1000
+        folder_str = f"{folder_name:04d}"
+        file_str = f"{file_name:03d}.jpg"
+        image_paths.append("https://storage.googleapis.com/vislang-public/sbu-images" + "/" + folder_str + "/" + file_str)
+    return image_paths
 def TextSimilar(text, k):
     text = text
     max_length = textModel.config.max_position_embeddings
@@ -113,13 +138,14 @@ def pagination():
         
         
 def indices_to_images(indices):
-    res = []
+    image_paths = []
     for i in indices:
-        result = (cursor.execute("SELECT Image_path from Image_Path.Path WHERE path_index =%s", (i,)))
-        result = cursor.fetchone()  # Fetch the result of the query
-        if result:
-            res.append("https://storage.googleapis.com/vislang-public/sbu-images/" + '/'.join(result[0].split("/")[1:]))
-    return res
+        folder_name = i // 1000
+        file_name = i % 1000
+        folder_str = f"{folder_name:04d}"
+        file_str = f"{file_name:03d}.jpg"
+        image_paths.append("https://storage.googleapis.com/vislang-public/sbu-images" + "/" + folder_str + "/" + file_str)
+    return image_paths
 
 def ImageSimilar(path, k):
     
