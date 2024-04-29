@@ -6,14 +6,16 @@ This project pioneers a system that simplifies the search for visual content by 
 1. Download the SBU Captions Dataset from http://www.cs.rice.edu/~vo9/sbucaptions/sbu_images.tar
 2. Install Python3 and required libraries as per the jupyter notebook files
 3. Download the 1 Million USearch Index file from https://drive.google.com/file/d/1_xii_xGebGcmsM6_slzKGqq3_HN7CExT/view?usp=sharing
-4. Download the 1 Million Annoy Index file from 
-5. Download the 1 Million Text/Captions Index file from 
+4. Download the 1 Million Annoy Index file from https://drive.google.com/file/d/1Cu3ziDK6bGTwV4cLCGGzYM0N_G_MKZxa/view?usp=drive_link
+5. Download the 1 Million Text/Captions Index file from https://drive.google.com/file/d/1i77SSTKCtDipQaCvr08yCEWgLAJUjYPU/view?usp=sharing
 6. Download Hindi 8K Flickr Dataset from https://www.kaggle.com/code/dsmeena/image-captioning-with-flickr8k-hindi-using-pytorch/input
+7. Download the 1000 USearch Index file from https://drive.google.com/file/d/1qgWMoCgUbrnViOtuU94LicY_LTFN0AgW/view?usp=drive_link
+8. Download the 1000 Annoy Index file from https://drive.google.com/file/d/1zpVjIBBdSHO9JkbhtjMQxV_t-J2kOeyS/view?usp=drive_link
 7. Download `trained_model.pth` for Hindi supported fine-tuned model from https://drive.google.com/file/d/1OzBEQp7dPdLFUj8rVzur9O1SnngBofwj/view?usp=sharing
 
 ## Code Structure:
 
-**server.py** -> 
+**server.py** -> Run the server.py file to start the flask web server. Once this is started, you need to navigate to the localhost server allocated by flask (127.0.0.1:5000). You can use the web interface to test the Text-To-Image, Image-To-Image, MultiLingual Text-To-Image, Speech-To-Image and Similarity search using Object Detection.
 
 **GenerateGroundTruthJson.ipynb** -> This jupyter file helps to get the ground truth values for selected 1000 images from the SBU Captions dataset using the YOLO API. It generates a json file with key values as unique objects detected from the input images and values as the frequency by which that specific object has appeared in all images. Note: If the same object is appeared more than once in an image then we count it only once. 
 
