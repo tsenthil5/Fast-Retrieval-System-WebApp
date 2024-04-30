@@ -11,6 +11,8 @@ This project pioneers a system that simplifies the search for visual content by 
 6. Download Hindi 8K Flickr Dataset from https://www.kaggle.com/code/dsmeena/image-captioning-with-flickr8k-hindi-using-pytorch/input
 7. Download the 1000 USearch Index file from https://drive.google.com/file/d/1qgWMoCgUbrnViOtuU94LicY_LTFN0AgW/view?usp=drive_link
 8. Download the 1000 Annoy Index file from https://drive.google.com/file/d/1zpVjIBBdSHO9JkbhtjMQxV_t-J2kOeyS/view?usp=drive_link
+9. Download the YOLO v8 file from https://drive.google.com/file/d/1Z4R06d3NFTaVRQ98NFd4F6JRJfok78Zs/view?usp=drive_link
+10. Download the Text-to-Text vector from https://drive.google.com/file/d/1gx5JnN0HRZBfKcS705Wd6JKb6Sj3Uzu0/view?usp=drive_link
 7. Download `trained_model.pth` for Hindi supported fine-tuned model from https://drive.google.com/file/d/1OzBEQp7dPdLFUj8rVzur9O1SnngBofwj/view?usp=sharing
 
 ## Code Structure:
